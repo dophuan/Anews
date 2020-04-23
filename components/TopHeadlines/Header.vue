@@ -1,18 +1,39 @@
 <template>
-  <div>
-    <el-carousel height="500px" direction="vertical" :autoplay="false">
+  <div class="header-container">
+    <el-carousel
+      height="495px"
+      direction="vertical"
+      :autoplay="true"
+    >
       <el-carousel-item v-for="item in news" :key="item">
         <img
-          style="width: 100%;"
           id="image"
           :src="item.urlToImage"
-          alt="">
+          class="background"
+          alt=""
+          width="660"
+          height="495"
+        >
+        <div class="post-summary">
+          <div class="post-title">
+            {{ item.title }}
+          </div>
+          <div class="post-description">
+            {{ item.description }}
+          </div>
+          <div class="news-meta-data">
+            <div class="news-meta-data__source"> {{ item.source.name }}</div>
+            <div> {{ publishDate(item.publishedAt) }}</div>
+            <div><i class="fas fa-share" aria-hidden="true"></i></div>
+          </div>
+        </div>
       </el-carousel-item>
     </el-carousel>
   </div>
 </template>
 
 <script>
+  import moment from 'moment'
   export default {
     name: 'TopHeadlinesHeader',
     props: {
@@ -20,10 +41,49 @@
         type: Object,
         required: true,
       }
+    },
+    methods: {
+      publishDate(date) {
+        return moment(date).format('YYYY-MM-DD')
+      }
     }
   }
 </script>
 
-<style>
+<style lang="scss">
+  .header-container
+  {
+    .background {
+      background-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+      border-radius: 4px;
+      width: 100%;
+    }
 
+    .post-summary {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      width: 100%;
+      color: white;
+
+      .post-title {
+        font-size: 24px;
+        font-weight: bold;
+        text-decoration: none;
+      }
+      .post-description {
+        padding-top: 5px;
+        padding-right: 25px;
+        text-align: justify;
+      }
+      .news-meta-data {
+        padding-top: 5px;
+        display: flex;
+
+        &__source {
+          margin-right: 15px;
+        }
+      }
+    }
+  }
 </style>
