@@ -10,12 +10,16 @@
       </el-submenu>
       <el-menu-item index="1">Profile</el-menu-item>
     </el-menu>
+    <top-headlines></top-headlines>
   </div>
 </template>
 
 <script>
-
+import TopHeadlines from '~/components/TopHeadlines'
 export default {
+  components: {
+    TopHeadlines,
+  },
   data() {
     return {
       activeIndex: '1',

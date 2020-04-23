@@ -1,15 +1,14 @@
-
+const restApiUrl = 'https://newsapi.org/'
 export default {
   mode: 'spa',
   /*
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'News' || '',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: 'Prime KOL' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -29,7 +28,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    '@/plugins/vue-api-query',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -40,7 +40,32 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
+    [
+      'nuxt-i18n',
+      {
+        locales: [
+          {
+            code: 'en',
+            iso: 'en-US',
+            file: 'en',
+          },
+        ],
+        defaultLocale: 'en',
+        lazy: true,
+        langDir: 'languages/',
+        vueI18n: {
+          fallbackLocale: 'en',
+        },
+        seo: false,
+      },
+    ],
   ],
+
+  axios: {
+    baseURL: restApiUrl,
+    prefix: '/v2',
+  },
   /*
   ** Build configuration
   */
@@ -51,5 +76,5 @@ export default {
     */
     extend (config, ctx) {
     }
-  }
+  },
 }
