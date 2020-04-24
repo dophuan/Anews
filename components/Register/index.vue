@@ -10,7 +10,6 @@
       :rules="rules"
       ref="registerForm"
       label-width="120px"
-      class="register-form"
     >
       <el-form-item
         label="Email"
@@ -100,14 +99,12 @@
       },
       closeForm() {
         this.resetForm()
-        event.emit('dialog.hide_register_form')
+        event.emit('dialog.hide_form')
       }
     }
   }
 </script>
 
 <style lang="scss">
-  .register-form {
 
-  }
 </style>
