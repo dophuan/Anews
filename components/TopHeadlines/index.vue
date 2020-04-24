@@ -36,9 +36,10 @@
       TopHeadlinesHeader,
       NewsItem,
     },
-    data: () => {
-      return {
-        newsList: []
+    props: {
+      newsList: {
+        type: Array,
+        required: true,
       }
     },
     mounted() {

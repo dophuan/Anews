@@ -72,6 +72,7 @@
 
       .post-title {
         cursor: pointer;
+        color: white;
         font-size: 24px;
         font-weight: bold;
         text-decoration: none;

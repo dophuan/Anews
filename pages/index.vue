@@ -4,14 +4,18 @@
       <el-menu-item index="headlines">Top Headlines</el-menu-item>
       <el-submenu index="keywords">
         <template slot="title">Keywords</template>
-        <el-menu-item index="2-1">item one</el-menu-item>
-        <el-menu-item index="2-2">item two</el-menu-item>
-        <el-menu-item index="2-3">item three</el-menu-item>
+        <el-menu-item
+          v-for="keyword in keywords"
+          :key="keyword"
+          :index="keyword.key"
+        >
+          {{ keyword.title }}
+        </el-menu-item>
       </el-submenu>
       <el-menu-item index="login" v-if="email === undefined">Profile</el-menu-item>
       <el-menu-item index="user" v-else>{{ email }}</el-menu-item>
     </el-menu>
-    <top-headlines/>
+    <top-headlines :news-list="newsList"/>
     <register-dialog :dialog-visible="showRegisterForm"/>
     <login-form :dialog-visible="showLoginForm" :list-users="usersList"/>
   </div>
@@ -23,6 +27,7 @@
   import { event } from '../utils/event'
   import RegisterDialog from '~/components/Register'
   import LoginForm from '~/components/Login'
+  import NewsModel from "../model/News";
 
   export default {
     components: {
@@ -39,7 +44,14 @@
         currentLoginUser: {
           email: '',
           pass: '',
-        }
+        },
+        keywords: [
+          { title:'bitcoin', key:'bitcoin'},
+          { title:'apple', key:'apple'},
+          { title:'earthquake', key:'earthquake'},
+          { title:'animal', key:'animal'},
+        ],
+        newsList: [],
       };
     },
     mounted() {
@@ -73,6 +85,38 @@
         if (key === 'login') {
           this.showLoginForm = true
         }
+        if (
+          key === 'bitcoin' ||
+          key === 'apple' ||
+          key === 'earthquake' ||
+          key === 'animal')
+        {
+          this.fetchKeyword(key)
+        }
+      },
+      fetchData() {
+        let model = new NewsModel()
+        return model
+          .getTopHeadlines()
+          .then(({data}) => {
+            this.newsList = []
+            this.newsList = data.articles
+          })
+          .catch(() => {
+            return null
+          })
+      },
+      fetchKeyword(keyword) {
+        let model = new NewsModel()
+        return model
+          .getKeywordPosts(keyword)
+          .then(({data}) => {
+            this.newsList = []
+            this.newsList = data.articles
+          })
+          .catch(() => {
+            return null
+          })
       }
     },
     computed: {
