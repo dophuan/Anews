@@ -42,8 +42,7 @@
       };
     },
     mounted() {
-      this.usersList = localStorage.getItem('Users')
-
+      this.usersList = JSON.parse(localStorage.getItem('UsersList') || '[]')
       event.on('dialog.show_register_form', () => {
         this.showRegisterForm = true
       })

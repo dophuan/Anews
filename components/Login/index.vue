@@ -82,10 +82,13 @@
     },
     data: () => {
       return {
-        form: {
-          email: '',
-          pass: '',
-        }
+        form: {}
+      }
+    },
+    mounted() {
+      this.form = {
+        email: '',
+        pass: '',
       }
     },
     methods: {
@@ -110,14 +113,7 @@
           this.closeForm()
         }
       },
-      resetForm() {
-        this.form = {
-          email: '',
-          password: '',
-        }
-      },
       closeForm() {
-        this.resetForm()
         event.emit('dialog.hide_login_form')
       },
       showRegisterForm() {
