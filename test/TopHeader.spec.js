@@ -19,7 +19,8 @@ describe('Top Header', () => {
           publishedAt: "2020-04-24T06:54:52Z",
           description: "Jace Prescott, the older brother of Dallas Cowboys quarterback Dak Prescott, died Thursday, the team said in a statement.",
         }],
-      }
+      },
+      localVue
     })
     expect(wrapper.html()).toMatchSnapshot()
   })
