@@ -7,7 +7,7 @@
   >
     <el-form
       :model="form"
-      ref="registerForm"
+      ref="loginForm"
       label-width="120px"
     >
       <el-form-item
@@ -109,6 +109,7 @@
         }
       },
       closeForm() {
+        this.$refs['loginForm'].resetFields()
         event.emit('dialog.hide_login_form')
       },
       showRegisterForm() {

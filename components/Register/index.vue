@@ -129,7 +129,7 @@
       form: {
         handler() {
           if (!this.preventValidate) {
-            this.$refs('registerForm').validate()
+            this.$refs['registerForm'].validate()
           }
         }
       }
@@ -161,19 +161,13 @@
             email: this.form.email,
             pass: sha256(this.form.pass)
           }
-          this.preventValidate = true
           this.users.push(user)
           localStorage.setItem('UsersList', JSON.stringify(this.users))
           this.closeForm()
         }
       },
       resetForm() {
-        this.preventValidate = true
-        this.form = {
-          email: '',
-          pass: '',
-          checkPass: '',
-        }
+        this.$refs['registerForm'].resetFields()
       },
       closeForm() {
         this.resetForm()
