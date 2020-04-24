@@ -15,9 +15,13 @@
           height="495"
         >
         <div class="post-summary">
-          <div class="post-title">
+          <a
+            :href="item.url"
+            target="_blank"
+            class="post-title"
+          >
             {{ item.title }}
-          </div>
+          </a>
           <div class="post-description">
             {{ item.description }}
           </div>
@@ -38,7 +42,7 @@
     name: 'TopHeadlinesHeader',
     props: {
       news: {
-        type: Object,
+        type: Array,
         required: true,
       }
     },
@@ -67,6 +71,7 @@
       color: white;
 
       .post-title {
+        cursor: pointer;
         font-size: 24px;
         font-weight: bold;
         text-decoration: none;

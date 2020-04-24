@@ -8,16 +8,17 @@
         <el-menu-item index="2-2">item two</el-menu-item>
         <el-menu-item index="2-3">item three</el-menu-item>
       </el-submenu>
-      <el-menu-item index="login">Profile</el-menu-item>
+      <el-menu-item index="login" v-if="email === undefined">Profile</el-menu-item>
+      <el-menu-item index="user" v-else>{{ email }}</el-menu-item>
     </el-menu>
-    <top-headlines></top-headlines>
+    <top-headlines/>
     <register-dialog :dialog-visible="showRegisterForm"/>
     <login-form :dialog-visible="showLoginForm" :list-users="usersList"/>
   </div>
 </template>
 
 <script>
-  import { isEmpty } from 'lodash-es'
+  import { get, first } from 'lodash-es'
   import TopHeadlines from '~/components/TopHeadlines'
   import { event } from '../utils/event'
   import RegisterDialog from '~/components/Register'
@@ -72,6 +73,11 @@
         if (key === 'login') {
           this.showLoginForm = true
         }
+      }
+    },
+    computed: {
+      email() {
+        return get(first(this.currentLoginUser), 'email')
       }
     }
   }

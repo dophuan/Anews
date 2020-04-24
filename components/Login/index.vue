@@ -66,6 +66,7 @@
 <script>
   import { event } from '../../utils/event'
   import { isEmpty } from 'lodash-es'
+  import { sha256 } from 'js-sha256'
 
   export default {
     name: 'LoginForm',
@@ -92,13 +93,8 @@
       }
     },
     methods: {
-      findExistingUser() {
-        return isEmpty(this.listUsers)
-          ? this.listUsers.filter((item) => (item.email === this.form.email && item.pass === this.form.pass))
-          : null
-      },
       submitForm() {
-        let result = this.findExistingUser()
+        let result = this.foundUser
         if (isEmpty(result)) {
           this.$notify.error({
             title: 'Error',
@@ -119,8 +115,16 @@
       showRegisterForm() {
         event.emit('dialog.show_register_form')
         this.closeForm()
+      },
+      filterUser(item) {
+        return item.email === this.form.email && item.pass === sha256(this.form.pass)
       }
     },
+    computed: {
+      foundUser() {
+        return this.listUsers.filter(this.filterUser)
+      }
+    }
   }
 </script>
 
