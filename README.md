@@ -1,6 +1,9 @@
 # VNNews
 
-> Project to participate R1 1pac interview
+> This project is to complete the entrance test of 1PAC VN. 
+> Author: Do Phu An (do.phuan@gmail.com). 
+> Framework: Vue JS, Nuxt JS and Element UI
+> Test: Jest
 
 ## Build Setup
 
@@ -10,6 +13,12 @@ $ npm install
 
 # serve with hot reload at localhost:3000
 $ npm run dev
+
+# run test
+$ npm run test
+
+# update snapshot of UT
+$ npm test -- -u
 
 # build for production and launch server
 $ npm run build
