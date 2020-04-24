@@ -104,7 +104,7 @@
         // eslint-disable-next-line no-useless-escape
         const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
         const match = regex.exec(value)
-        if (isEmpty(match)) {
+        if (isEmpty(match) && !this.preventValidate) {
           callback(new Error("Please enter a password that contains at least a letter, a digit, and a special character"))
         } else {
           callback()
@@ -135,6 +135,7 @@
       }
     },
     mounted() {
+      this.preventValidate = true
       this.form = {
         email: '',
         pass: '',
@@ -167,6 +168,7 @@
         }
       },
       resetForm() {
+        this.preventValidate = true
         this.form = {
           email: '',
           pass: '',
