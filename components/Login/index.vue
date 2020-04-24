@@ -65,7 +65,6 @@
 
 <script>
   import { event } from '../../utils/event'
-  import { isEmpty } from 'lodash-es'
   import { sha256 } from 'js-sha256'
 
   export default {
@@ -95,7 +94,7 @@
     methods: {
       submitForm() {
         let result = this.foundUser
-        if (isEmpty(result)) {
+        if (result.length === 0) {
           this.$notify.error({
             title: 'Error',
             message: 'Email or password is incorrect. Please try again!',
