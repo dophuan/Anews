@@ -15,7 +15,11 @@
           News
         </h3>
         <el-row :span="24">
-          <el-col :span="24" v-for="item in otherNews" :key="item">
+          <el-col
+            :span="24"
+            v-for="(item, index) in otherNews"
+            :key="index"
+          >
             <news-item :item="item"/>
             <el-divider/>
           </el-col>
@@ -40,22 +44,6 @@
       newsList: {
         type: Array,
         required: true,
-      }
-    },
-    mounted() {
-      this.fetchData()
-    },
-    methods: {
-      fetchData() {
-        let model = new NewsModel()
-        return model
-        .getTopHeadlines()
-        .then(({data}) => {
-          this.newsList = data.articles
-        })
-        .catch(() => {
-          return null
-        })
       }
     },
     computed: {

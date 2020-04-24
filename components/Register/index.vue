@@ -7,7 +7,6 @@
   >
     <el-form
       :model="form"
-      :rules="rules"
       ref="registerForm"
       label-width="120px"
     >

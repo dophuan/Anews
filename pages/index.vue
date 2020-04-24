@@ -5,8 +5,8 @@
       <el-submenu index="keywords">
         <template slot="title">Keywords</template>
         <el-menu-item
-          v-for="keyword in keywords"
-          :key="keyword"
+          v-for="(keyword, index) in keywords"
+          :key="index"
           :index="keyword.key"
         >
           {{ keyword.title }}
@@ -80,6 +80,13 @@
       event.off('dialog.set_login_user')
       event.off('dialog.hide_login_form')
     },
+    created() {
+      if (this.query !== undefined) {
+        this.fetchKeyword(this.query)
+      } else {
+        this.fetchData()
+      }
+    },
     methods: {
       handleSelect(key) {
         if (key === 'login') {
@@ -91,6 +98,11 @@
           key === 'earthquake' ||
           key === 'animal')
         {
+          const query = { 'keyword': key }
+          this.$router.push({
+            path: this.$router.path,
+            query,
+          })
           this.fetchKeyword(key)
         }
       },
@@ -120,6 +132,9 @@
       }
     },
     computed: {
+      query() {
+        return get(this.$route, 'query.keyword')
+      },
       email() {
         return get(first(this.currentLoginUser), 'email')
       }

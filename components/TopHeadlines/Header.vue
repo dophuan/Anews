@@ -5,7 +5,7 @@
       direction="vertical"
       :autoplay="true"
     >
-      <el-carousel-item v-for="item in news" :key="item">
+      <el-carousel-item v-for="(item, index) in news" :key="index">
         <img
           id="image"
           :src="item.urlToImage"
